@@ -1,6 +1,4 @@
 <template>
-    <h>Hello sign up page!!!</h>
-    <br>
     <SignUpCard/>
 </template>
 
