@@ -7,7 +7,7 @@
         </div>
         <div class="text-field-pair">
             <label>Password</label>
-            <input type="password" v-model="password" @input="checkPassword" id="password-input" name="password-input"
+            <input type="password" v-model="password" id="password-input" name="password-input"
                 placeholder="password" required>
         </div>
         <!-- Sign up button -->
