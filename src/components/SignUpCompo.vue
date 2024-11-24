@@ -1,24 +1,24 @@
 <template>
-    <div id="sign-up-card">
+    <form id="sign-up-card" @submit.prevent="submitForm">
         <!-- Text and password fields -->
         <div class="text-field-pair">
             <label>Email</label>
-            <input type="email" v-model="email" id="email-input" name="email-input" placeholder="email">
+            <input type="email" v-model="email" id="email-input" name="email-input" placeholder="email" required>
         </div>
         <div class="text-field-pair">
             <label>Password</label>
             <input type="password" v-model="password" @input="checkPassword" id="password-input" name="password-input"
-                placeholder="password">
+                placeholder="password" required>
         </div>
         <!-- Sign up button -->
-        <button @click="submitForm">Sign Up</button>
+        <button type="submit">Sign Up</button>
 
         <!-- Every passwordError displayed -->
         <div style="color: rgb(137, 20, 0);" v-if="passwordErrors.length > 0">
             <p>Password is not valid:</p>
             <p style="font-size: medium;" v-for="error in passwordErrors" :key="error">{{ error }}</p>
         </div>
-    </div>
+    </form>
 </template>
 
 <script>
@@ -36,7 +36,7 @@ export default {
         submitForm() {
             this.passwordErrors = validatePassword(this.password);
             if (this.passwordErrors.length === 0) {
-                this.$router.push({name: "home"});
+                this.$router.push({ name: "home" });
             }
         }
     }
