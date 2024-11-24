@@ -3,20 +3,74 @@
         <!-- Text and password fields -->
         <div class="text-field-pair">
             <label>Email</label>
-            <input type="text" id="email-input" name="email-input">
+            <input type="email" v-model="email" id="email-input" name="email-input" placeholder="email">
         </div>
         <div class="text-field-pair">
             <label>Password</label>
-            <input type="password" id="password-input" name="password-input">
+            <input type="password" v-model="password" @input="checkPassword" id="password-input" name="password-input"
+                placeholder="password">
         </div>
         <!-- Sign up button -->
-        <button>Sign Up</button>
+        <button @click="submitForm">Sign Up</button>
+
+        <!-- Every passwordError displayed -->
+        <div style="color: rgb(137, 20, 0);" v-if="passwordErrors.length > 0">
+            <p>Password is not valid:</p>
+            <p style="font-size: medium;" v-for="error in passwordErrors" :key="error">{{ error }}</p>
+        </div>
     </div>
 </template>
 
 <script>
+
 export default {
-    name: 'SignUpCard'
+    name: 'SignUpCard',
+    data() {
+        return {
+            email: '',
+            password: '',
+            passwordErrors: []
+        };
+    },
+    methods: {
+        submitForm() {
+            this.passwordErrors = validatePassword(this.password);
+            if (this.passwordErrors.length === 0) {
+                this.$router.push({name: "home"});
+            }
+        }
+    }
+};
+
+
+function validatePassword(password) {
+    var unsatisfied = [];
+    if (password.length < 8 || password.length > 14) {
+        unsatisfied.push("Length should be at least 8 chars and less than 15 chars!");
+    }
+    if (!/[A-Z]/.test(password)) {
+        unsatisfied.push("Must include at least one uppercase alphabet character!");
+    }
+
+    // 2 lowercase chars
+    var lowerCaseChars = password.match(/[a-z]/g);
+    if (lowerCaseChars === null || lowerCaseChars.length < 2) {
+        unsatisfied.push("Must include at least two lowercase alphabet characters!");
+    }
+
+    if (!/[0-9]/.test(password)) {
+        unsatisfied.push("Must include at least one numeric value!");
+    }
+
+    if (!/^[A-Z]/.test(password)) {
+        unsatisfied.push("Password should start with an uppercase alphabet!");
+    }
+
+    if (!/_/.test(password)) {
+        unsatisfied.push("Password should include the character “_”");
+    }
+
+    return unsatisfied;
 }
 </script>
 
@@ -82,5 +136,4 @@ button:hover {
     background-color: #1d2127c9;
     transform: translateY(-2px);
 }
-
 </style>
