@@ -1,17 +1,23 @@
 <template>
-    <h>This is header</h>
-</template>
-
-<script>
-export default {
-    name: 'HeaderComponent',
-    props: {
-    }
-}
-</script>
-
-<style scoped>
-h {
-    color: red;
-}
-</style>
+    <header>
+      <nav>
+        <router-link to="/">Main</router-link> | 
+        <router-link to="/sign-up">Signup</router-link>
+      </nav>
+    </header>
+  </template>
+  
+  <script>
+  export default {
+    name: "HeaderComponent",
+  };
+  </script>
+  
+  <style>
+  nav {
+    display: flex;
+    justify-content: center;
+    padding: 1em;
+  }
+  </style>
+  
