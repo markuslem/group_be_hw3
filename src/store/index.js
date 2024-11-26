@@ -128,10 +128,20 @@ export default createStore({
         post['like-count'] = 0;
       });
     },
+    LIKE(state, postId) {
+      var post = state.posts.find((p) => p.id === postId);
+      if (post){
+        post['like-count'] += 1;
+      }
+    }
+    
   },
   actions: {
     resetLikes({ commit }) {
       commit('RESET_LIKES');
+    },
+    like_Button({ commit }, postId) {
+      commit('LIKE', postId);
     }
   },
   modules: {

@@ -14,12 +14,13 @@
       </div>
       <p v-if="post.desc">{{ post.desc }}</p>
       <p>🖤 {{ post['like-count'] }}</p>
+      <button @click="like_Button(post.id)" id = like_button>Like!</button>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Post",
@@ -29,7 +30,16 @@ export default {
       return this.$store.getters.postgetter
     },
   },
-};
+  methods: {
+    ...mapActions(["like_Button"]),
+    likePost(postId) {
+      this.like_Button(postId); 
+    },
+  }
+
+  };
+  
+
 </script>
 
 <style scoped>
