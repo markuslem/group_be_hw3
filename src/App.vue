@@ -16,9 +16,6 @@
 }
 
 /* footer styling */
-main {
-  flex: 1;
-}
 
 footer {
   margin-top: 24px;

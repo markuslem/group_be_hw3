@@ -9,12 +9,12 @@
         </div>
       </div>
       <div v-if="post.picture">
-        <img :src="post.picture" alt="Post Image" style="width: 100%;" />
+        <img :src="post.picture" alt="Post Image" style="width: 70%;" />
         <p>{{ post['picture-info'] }}</p>
       </div>
       <p v-if="post.desc">{{ post.desc }}</p>
-      <p>🖤 {{ post['like-count'] }}</p>
-      <button @click="like_Button(post.id)" id = like_button>Like!</button>
+      <p>🤍 {{ post['like-count'] }}</p>
+      <button @click="like_Button(post.id)" id=like_button>Like!</button>
     </div>
   </div>
 </template>
@@ -31,10 +31,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["like_Button"]),
-    likePost(postId) {
-      this.like_Button(postId); 
-    },
+    ...mapActions(["like_Button"])
   }
 
   };
@@ -65,7 +62,16 @@ export default {
 
 @media (max-width: 500px) {
   .content-box {
-    width: 94%;
+    width: 80%;
   }
+}
+
+#like_button {
+  color: rgb(33, 45, 58);
+  background-color: #70ffc8be;
+}
+
+#like_button:hover {
+  background-color: #70ffc8;
 }
 </style>

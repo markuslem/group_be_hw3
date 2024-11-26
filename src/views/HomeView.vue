@@ -23,9 +23,6 @@ export default {
 </script>
 
 <style>
-/* main {
-  margin: 20px;
-} */
 
 #resetter {
   background-color: #bb2929;
