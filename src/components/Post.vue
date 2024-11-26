@@ -41,7 +41,7 @@ export default {
 }
 
 .content-box {
-  border: 3px solid #0c5c9e;
+  border: 5px solid #0c5c9e;
   padding: 15px;
   margin-bottom: 15px;
   border-radius: 8px;
@@ -50,6 +50,7 @@ export default {
   color: white;
   overflow-wrap: break-word;
   word-wrap: break-word;
+  box-shadow: 8px 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 500px) {

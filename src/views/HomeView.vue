@@ -2,7 +2,6 @@
   <div>
     <HeaderComponent />
     <main>
-      <h1>Main Page</h1>
       <Post />
       <button @click="resetLikes" id="resetter">Reset likes</button>
     </main>
@@ -26,9 +25,9 @@ export default {
 </script>
 
 <style>
-main {
+/* main {
   margin: 20px;
-}
+} */
 
 #resetter {
   background-color: #bb2929;

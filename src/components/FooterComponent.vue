@@ -1,5 +1,7 @@
 <template>
-    <h>&copy; 2024 MMK OÜ. All rights reserved.</h>
+    <footer>
+        <h2>&copy; 2024 MMK OÜ. All rights reserved.</h2>
+    </footer>
 </template>
 
 <script>
@@ -11,7 +13,10 @@ export default {
 </script>
 
 <style scoped>
-h {
+h2 {
     color: black;
+    /* padding: 10px; */
+    /* margin-bottom: 0px; */
+    background-color: rgb(112, 112, 112);
 }
 </style>

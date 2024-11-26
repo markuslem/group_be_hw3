@@ -1,9 +1,9 @@
 <template>
     <div>
-        <HeaderComponent/>
-        <SignUpCard/>
-        <FooterComponent/>
+        <HeaderComponent />
+        <SignUpCard />
     </div>
+    <FooterComponent />
 </template>
 
 <script>
