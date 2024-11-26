@@ -1,5 +1,5 @@
 <template>
-    <h>This is footer</h>
+    <h>&copy; 2024 MMK OÜ. All rights reserved.</h>
 </template>
 
 <script>
@@ -12,6 +12,6 @@ export default {
 
 <style scoped>
 h {
-    color: red;
+    color: black;
 }
 </style>
