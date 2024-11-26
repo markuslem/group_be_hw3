@@ -15,8 +15,6 @@ export default {
 <style scoped>
 h2 {
     color: black;
-    /* padding: 10px; */
-    /* margin-bottom: 0px; */
     background-color: rgb(112, 112, 112);
 }
 </style>
