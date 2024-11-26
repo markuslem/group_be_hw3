@@ -1,12 +1,10 @@
 <template>
-  <div>
+    <div>
     <HeaderComponent />
-    <main>
       <Post />
       <button @click="resetLikes" id="resetter">Reset likes</button>
-    </main>
+    </div>
     <FooterComponent />
-  </div>
 </template>
 
 <script>
