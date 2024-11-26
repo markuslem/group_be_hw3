@@ -136,4 +136,16 @@ button:hover {
     background-color: #1d2127c9;
     transform: translateY(-2px);
 }
+
+@media (max-width: 500px) {
+    .text-field-pair {
+        flex-direction: column;
+    }
+    #sign-up-card {
+        min-width: 80%;
+    }
+    label {
+        text-align: center;
+    }
+}
 </style>
