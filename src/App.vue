@@ -26,4 +26,27 @@ nav a.router-link-exact-active {
 body {
   background-color: #19aed38c;
 }
+
+button {
+  background-color: #8D919B;
+  border-radius: 10px;
+  font-size: larger;
+}
+
+
+button {
+  background-color: #363f50c9;
+  color: white;
+  border: none;
+  border-radius: 24px;
+  padding: 0.7em 1.5em;
+  font-size: larger;
+  cursor: pointer;
+  transition: background-color 0.7s ease, transform 0.3s ease;
+}
+
+button:hover {
+  background-color: #1d2127c9;
+  transform: translateY(-2px);
+}
 </style>
