@@ -24,10 +24,13 @@ app.post('/auth/signup', async (req, res) => {
     try {
         console.log("new sign up request");
         const { email, password } = req.body;
-        // TODO crypt the password with salt
+        const salt = await bcrypt.genSalt();
+        const bcryptPassword = await bcrypt.hash(password, salt);
+
         const authUser = await pool.query(
-            "INSERT INTO users(email, password) values ($1, $2) RETURNING*", [email, password]
-        )
+            "INSERT INTO users(email, password) values ($1, $2) RETURNING*", [email, bcryptPassword]
+        );
+        console.log(authUser.rows[0].id);
 
         // TODO generate JWT token
 
@@ -41,14 +44,14 @@ app.post('/auth/signup', async (req, res) => {
     }
 });
 
-app.post('/auth/login', async(req, res) => {
+app.post('/auth/login', async (req, res) => {
     try {
         console.log("a login request has arrived");
         const { email, password } = req.body;
         const user = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
         if (user.rows.length === 0) return res.status(401).json({ error: "User is not registered" });
-        // const validPassword = await bcrypt.compare(password, user.rows[0].password);
-        if (user.rows[0].password !== password) return res.status(401).json({ error: "Incorrect password" });
+        const validPassword = await bcrypt.compare(password, user.rows[0].password);
+        if (!validPassword) return res.status(401).json({ error: "Incorrect password" });
         // const token = await generateJWT(user.rows[0].id);
         res
             .status(201)

@@ -37,7 +37,6 @@ export default {
             this.$router.push('/sign-up');
         },
         submitForm() {
-            console.log("form submitted");
             var data = {
                 email: this.email,
                 password: this.password
