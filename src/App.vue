@@ -5,8 +5,8 @@
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -webkit-logIn-smoothing: antialiased;
+  -moz-osx-logIn-smoothing: grayscale;
   text-align: center;
   color: #212d3a;
   display: flex;
@@ -59,7 +59,7 @@ body {
 button {
   background-color: #8D919B;
   border-radius: 10px;
-  font-size: larger;
+  font-size: large;
 } 
 
 
@@ -69,7 +69,7 @@ button {
   border: none;
   border-radius: 24px;
   padding: 0.7em 1.5em;
-  font-size: larger;
+  font-size: large;
   cursor: pointer;
   transition: background-color 0.7s ease, transform 0.3s ease;
 }

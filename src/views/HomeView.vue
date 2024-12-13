@@ -1,10 +1,11 @@
 <template>
-    <div>
+  <div>
     <HeaderComponent />
-      <Post />
-      <button @click="resetLikes" id="resetter">Reset likes</button>
-    </div>
-    <FooterComponent />
+    <button @click="logOut" class="red-btn" style="margin-bottom: 0.5em;">Log Out</button>
+    <Post />
+    <button @click="resetLikes" class="red-btn">Reset likes</button>
+  </div>
+  <FooterComponent />
 </template>
 
 <script>
@@ -18,13 +19,15 @@ export default {
   components: { HeaderComponent, FooterComponent, Post },
   methods: {
     ...mapActions(['resetLikes']),
+    logOut() {
+      this.$router.push('/log-in');
+    }
   },
 };
 </script>
 
 <style>
-
-#resetter {
+.red-btn {
   background-color: #bb2929;
 }
 </style>
