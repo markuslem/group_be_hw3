@@ -1,7 +1,7 @@
 <template>
   <div>
     <HeaderComponent />
-    <button @click="logOut" class="red-btn" style="margin-bottom: 0.5em;">Log Out</button>
+    <button v-if = "authResult" @click="Logout" class="red-btn" style="margin-bottom: 0.5em;">Log Out</button>
     <Post />
     <button @click="resetLikes" class="red-btn">Reset likes</button>
   </div>
@@ -12,16 +12,38 @@
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 import Post from "@/components/Post.vue";
+import auth from "../auth";
 import { mapActions } from "vuex";
 
 export default {
   name: "MainPage",
   components: { HeaderComponent, FooterComponent, Post },
+  data: function() {
+    return {
+    authResult: auth.authenticated()
+    }
+  },
   methods: {
     ...mapActions(['resetLikes']),
-    logOut() {
-      this.$router.push('/log-in');
-    }
+
+    Logout() {
+      console.log(this.authResult)
+      fetch("http://localhost:3000/auth/logout", {
+          credentials: 'include', //  Don't forget to specify this if you need cookies
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        console.log('jwt removed');
+        //console.log('jwt removed:' + auth.authenticated());
+        this.$router.push("/log-in");
+        //location.assign("/");
+      })
+      .catch((e) => {
+        console.log(e);
+        console.log("error logout");
+      });
+    },
   },
 };
 </script>

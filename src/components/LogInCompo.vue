@@ -14,7 +14,7 @@
         <!-- Log in or sign up -->
 
         <div id="log-or-sign">
-            <button type="submit">Log In</button>
+            <button @click="submitForm" >Log In</button>
             <p>Or</p>
             <button @click="directToSignUp">Sign Up</button>
         </div>
@@ -52,7 +52,7 @@ export default {
                 .then((response) => response.json())
                 .then((data) => {
                     console.log(data);
-                    this.$router.push("/");
+                    location.assign("/");
                 })
                 .catch((e) => {
                     console.log(e);

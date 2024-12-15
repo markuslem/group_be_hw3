@@ -11,7 +11,8 @@
                 required>
         </div>
         <!-- Sign up button -->
-        <button type="submit">Sign Up</button>
+        
+        <button @click="submitForm">SignUp</button>
 
         <!-- Every passwordError displayed -->
         <div style="color: rgb(137, 20, 0);" v-if="passwordErrors.length > 0">
@@ -32,6 +33,7 @@ export default {
             passwordErrors: []
         };
     },
+    
     methods: {
         submitForm() {
             this.passwordErrors = validatePassword(this.password);
@@ -56,6 +58,7 @@ export default {
                     this.$router.push("/");
                 })
                 .catch((e) => {
+                    console.log("SIIIn")
                     console.log(e);
                     console.log("error");
                 });
