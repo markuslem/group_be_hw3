@@ -14,7 +14,7 @@
         <!-- Log in or sign up -->
 
         <div id="log-or-sign">
-            <button @click="submitForm" >Log In</button>
+            <button>Log In</button>
             <p>Or</p>
             <button @click="directToSignUp">Sign Up</button>
         </div>

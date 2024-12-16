@@ -12,7 +12,7 @@
         </div>
         <!-- Sign up button -->
         
-        <button @click="submitForm">Sign Up</button>
+        <button>Sign Up</button>
 
     </form>
 </template>
