@@ -56,7 +56,6 @@ app.get('/auth/authenticate', async(req, res) => {
 app.post('/auth/signup', async(req, res) => {
     try {
         console.log("a signup requeSSSSSSSsst has arrived");
-        console.log("Serveris");
         console.log(req.body);
         const { email, password } = req.body;
 
@@ -68,8 +67,7 @@ app.post('/auth/signup', async(req, res) => {
         console.log(authUser.rows[0].id);
         const token = await generateJWT(authUser.rows[0].id); // generates a JWT by taking the user id as an input (payload)
         console.log(token);
-        //res.cookie("isAuthorized", true, { maxAge: 1000 * 60, httpOnly: true });
-        //res.cookie('jwt', token, { maxAge: 6000000, httpOnly: true });
+
         res
             .status(201)
             .cookie('jwt', token, { maxAge: 6000000, httpOnly: true })
@@ -88,19 +86,9 @@ app.post('/auth/login', async(req, res) => {
         const user = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
         if (user.rows.length === 0) return res.status(401).json({ error: "User is not registered" });
 
-        /* 
-        To authenticate users, you will need to compare the password they provide with the one in the database. 
-        bcrypt.compare() accepts the plain text password and the hash that you stored, along with a callback function. 
-        That callback supplies an object containing any errors that occurred, and the overall result from the comparison. 
-        If the password matches the hash, the result is true.
-
-        bcrypt.compare method takes the first argument as a plain text and the second argument as a hash password. 
-        If both are equal then it returns true else returns false.
-        */
 
         //Checking if the password is correct
         const validPassword = await bcrypt.compare(password, user.rows[0].password);
-        //console.log("validPassword:" + validPassword);
         if (!validPassword) return res.status(401).json({ error: "Incorrect password" });
 
         const token = await generateJWT(user.rows[0].id);
