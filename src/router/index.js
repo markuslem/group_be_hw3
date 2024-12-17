@@ -6,19 +6,19 @@ import Contacts from "../views/Contacts.vue";
 import auth from "../auth";
 import AddPost from "@/views/AddPost.vue";
 const routes = [
-  
+
   {
     path: '/',
     name: 'home',
     component: HomeView,
-    beforeEnter: async(to, from, next) => {
+    beforeEnter: async (to, from, next) => {
       let authResult = await auth.authenticated();
       if (!authResult) {
-          next('/log-in')
+        next('/log-in')
       } else {
-          next();
+        next();
       }
-  }
+    }
   },
   {
     path: '/sign-up',
@@ -29,7 +29,7 @@ const routes = [
     path: '/log-in',
     name: 'logIn',
     component: LogIn,
- 
+
   },
   {
     path: '/contacts',
@@ -40,6 +40,14 @@ const routes = [
     path: "/add-post",
     name: "AddPost",
     component: AddPost,
+    beforeEnter: async (to, from, next) => {
+      let authResult = await auth.authenticated();
+      if (!authResult) {
+        next('/log-in')
+      } else {
+        next();
+      }
+    },
     meta: { requiresAuth: true } //require authentication
   },
   {
@@ -47,10 +55,18 @@ const routes = [
     name: "PostView",
     component: () => import("@/views/PostView.vue"),
     props: true,
+    beforeEnter: async (to, from, next) => {
+      let authResult = await auth.authenticated();
+      if (!authResult) {
+        next('/log-in')
+      } else {
+        next();
+      }
+    },
     meta: { requiresAuth: true } //require authentication
   },
-  
-  
+
+
 ]
 
 const router = createRouter({

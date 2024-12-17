@@ -2,7 +2,7 @@
   <div>
     <HeaderComponent />
     <div class="about">
-    <h1>This is the contacts page</h1>
+    <h1>Contact with Markus, Kristjan and Markus if you have any problems.</h1>
     </div>
   </div>
   <FooterComponent />
