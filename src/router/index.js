@@ -4,6 +4,7 @@ import SignUp from "../views/SignUpView.vue";
 import LogIn from "../views/LogInView.vue";
 import Contacts from "../views/Contacts.vue";
 import auth from "../auth";
+import AddPost from "@/views/AddPost.vue";
 const routes = [
   
   {
@@ -35,6 +36,20 @@ const routes = [
     name: 'Contacts',
     component: Contacts,
   },
+  {
+    path: "/add-post",
+    name: "AddPost",
+    component: AddPost,
+    meta: { requiresAuth: true } //require authentication
+  },
+  {
+    path: "/post/:id", //dynamic route with 'id'
+    name: "PostView",
+    component: () => import("@/views/PostView.vue"),
+    props: true,
+    meta: { requiresAuth: true } //require authentication
+  },
+  
   
 ]
 

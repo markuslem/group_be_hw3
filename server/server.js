@@ -1,9 +1,9 @@
 const express = require('express');
-const pool = require('./database');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
+const { pool, execute, getAllPosts } = require("./database");
 
 const port = process.env.PORT || 3000;
 
@@ -101,6 +101,113 @@ app.post('/auth/login', async(req, res) => {
         res.status(401).json({ error: error.message });
     }
 });
+
+
+//delete all posts
+app.delete('/posts', async (req, res) => {
+    try {
+        const query = "DELETE FROM posts";
+        await pool.query(query);
+        res.status(200).json({ message: "All posts deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting all posts:", error.message);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+
+//fetch all posts
+app.get('/posts', async (req, res) => {
+    try {
+        const posts = await getAllPosts();
+        res.status(200).json(posts);
+    } catch (error) {
+        console.error("Error fetching posts:", error.message);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+
+//add a new post
+app.post("/posts", async (req, res) => {
+    try {
+      const { content } = req.body;
+      if (!content) return res.status(400).json({ error: "Content is required" });
+  
+      const query = `INSERT INTO posts (content) VALUES ($1) RETURNING *;`;
+      const values = [content];
+      const result = await execute(query, values);
+  
+      res.status(201).json({ message: "Post added successfully", post: result.rows[0] });
+    } catch (error) {
+      console.error("Error adding post:", error.message);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  });
+  
+//fetch a single post by ID
+app.get('/posts/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const query = "SELECT * FROM posts WHERE id = $1";
+        const result = await pool.query(query, [id]);
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: "Post not found" });
+        }
+
+        res.status(200).json(result.rows[0]);
+    } catch (error) {
+        console.error("Error fetching post by ID:", error.message);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+//update a post by ID
+app.put('/posts/:id', async (req, res) => {
+    try {
+        const { id } = req.params; 
+        const { content } = req.body; 
+
+        if (!content) return res.status(400).json({ error: "Content is required" });
+
+        const query = "UPDATE posts SET content = $1 WHERE id = $2 RETURNING *";
+        const values = [content, id];
+
+        const result = await pool.query(query, values);
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: "Post not found" });
+        }
+
+        res.status(200).json({ message: "Post updated successfully", post: result.rows[0] });
+    } catch (error) {
+        console.error("Error updating post:", error.message);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+//delete a post by ID
+app.delete('/posts/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const query = "DELETE FROM posts WHERE id = $1 RETURNING *";
+        const values = [id];
+
+        const result = await pool.query(query, values);
+
+        if (result.rowCount === 0) {
+            return res.status(404).json({ error: "Post not found" });
+        }
+
+        res.status(200).json({ message: "Post deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting post:", error.message);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
 
 
 app.get('/auth/logout', (req, res) => {
